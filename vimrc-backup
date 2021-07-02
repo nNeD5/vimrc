@@ -1,24 +1,28 @@
 set nocompatible              " be iMproved, required
 syntax on "Включить подсветку синтаксиса
 
+filetype on
+filetype indent on
+"plugins {{{
 call   plug#begin('~/AppData/Local/nvim/pluged')
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     Plug 'https://github.com/sainnhe/everforest'
 call plug#end()
+" }}}
 
 colorscheme everforest
 
 set autochdir           " Switch to current file's parent directory.
-
-" Настройки табов
+" space setting {{{
 set tabstop=4
 set shiftwidth=4
 set smarttab
 set expandtab "Ставим табы пробелами
 set softtabstop=4 "4 пробела в табе
-" Автоотступ
-set autoindent
+set smartindent
+"}}}
+
 
 set mousehide "Спрятать курсор мыши когда набираем текст
 set mouse=a "Включить поддержку мыши
@@ -29,7 +33,7 @@ set t_vb= "Не пищать! (Опции 'не портить текст', к �
 set backspace=indent,eol,start whichwrap+=<,>,[,]
 
 "переносит строчки не посимвольно, а по словам
-"set wrap linebreak nolist
+set wrap linebreak nolist
 "
 " Вырубаем .swp и ~ (резервные) файлы
 set nobackup
@@ -39,7 +43,7 @@ set fileencodings=utf8,cp1251
 
 set clipboard=unnamed
 
-set ttimeoutlen=10 "Понижаем задержку ввода escape последовательностей
+"set diffent cursor in diffent mod {{{
 let &t_SI.="\e[5 q" "SI = режим вставки
 let &t_SR.="\e[3 q" "SR = режим замены
 let &t_EI.="\e[2 q" "EI = нормальный режим
@@ -49,6 +53,7 @@ let &t_EI.="\e[2 q" "EI = нормальный режим
 "4 - просто подчёркивание
 "5 - мигающая вертикальная черта
 "6 - просто вертикальная черта
+" }}}
 
 set hidden
 
@@ -58,27 +63,25 @@ set number relativenumber
 
 set cursorline "подсвечивать строку с курсором
 
+" Show partial command you type in the last line of the screen.
+set showcmd
+
+" No show the mode you are on the last line.(have in airline)
+"set noshowmode
+
+set hlsearch
+set ignorecase
+
+set wildmenu
 " Выключаем звук в Vim
 set visualbell t_vb=
-"config airline
+"
+"config airline {{{
 let g:airline_experimental=1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
-" unicode symbols
-let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.linenr = '␤'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.paste = '∥'
-let g:airline_symbols.whitespace = 'Ξ'
 " powerline symbols
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
@@ -92,10 +95,26 @@ let g:airline_symbols.maxlinenr = '☰ '
 let g:airline_symbols.dirty='⚡'
 
 let g:airline_section_z = "\ln:%l/%L Col:%c" "Кастомная графа положения курсора
-let g:airline_detect_iminsert=0
 let g:airline_section_y=''
 " disable spell detection
 let g:airline_detect_spell=0
-
+let g:airline_detect_iminsert=0
+" }}}
 set list listchars=space:-
 
+
+" Vimscript file settings {{{
+augroup filtetype_vim
+  autocmd!
+  autocmd FileType vim setlocal foldmethod=marker
+augroup END
+" }}}
+"nnoremap {{{
+nnoremap <space><space> :set nohlsearch!<CR>
+nnoremap <Down>  :resize -2<CR>
+nnoremap <Left>  :vertical resize +2<CR>
+nnoremap <Right> :vertical resize -2<CR>
+nnoremap <Up>    :resize +2<CR>
+"}}}
+
+inoremap jj <esc>
