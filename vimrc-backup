@@ -1,49 +1,44 @@
-set nocompatible              " be iMproved, required
-syntax on "Включить подсветку синтаксиса
+set nocompatible "no VI-compatible
 
-filetype on
-filetype indent on
 "plugins {{{
 call   plug#begin('~/AppData/Local/nvim/pluged')
+    "status line
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
+
+    "colorscheme
     Plug 'https://github.com/sainnhe/everforest'
 call plug#end()
 " }}}
 
-colorscheme everforest
-
-set autochdir           " Switch to current file's parent directory.
-" space setting {{{
-set tabstop=4
-set shiftwidth=4
-set smarttab
-set expandtab "Ставим табы пробелами
-set softtabstop=4 "4 пробела в табе
-set smartindent
+"standard {{{
+syntax on
+set number relativenumber
+set cursorline "highlight current line
+set showcmd "show typing command in the last line of the screen
+set hidden "change fie without writing current
+set autochdir "switch to current file's parent directory.
+set mouse=a "enable mouse
+set novisualbell "disable blinking
+set t_vb= "disable sounds
+set wrap nolist linebreak "not change the text but simply displays it on multiple lines when wrap
+set nobackup "disable backup files
+set noswapfile "disable swap files
+set list listchars=space:- "show spaces like
+set ignorecase "ignore case when searching
+set spelllang=en,ru,uk
 "}}}
 
-
-set mousehide "Спрятать курсор мыши когда набираем текст
-set mouse=a "Включить поддержку мыши
-set termencoding=utf-8 "Кодировка терминала
-set novisualbell "Не мигать
-set t_vb= "Не пищать! (Опции 'не портить текст', к сожалению, нету)
-" Удобное поведение backspace
+" indents {{{
+set tabstop=4 "number of spaces that <Tab> in the file counts for
+set shiftwidth=4
+set smarttab "delete full indents with <backspace> in line start
+set expandtab "use to spaces to insert a <Tab>
+set autoindent "copy indent from current line
 set backspace=indent,eol,start whichwrap+=<,>,[,]
+"}}}
 
-"переносит строчки не посимвольно, а по словам
-set wrap linebreak nolist
-"
-" Вырубаем .swp и ~ (резервные) файлы
-set nobackup
-set noswapfile
-set encoding=utf-8 " Кодировка файлов по умолчанию
-set fileencodings=utf8,cp1251
-
-set clipboard=unnamed
-
-"set diffent cursor in diffent mod {{{
+"diffent cursor among mods {{{
 let &t_SI.="\e[5 q" "SI = режим вставки
 let &t_SR.="\e[3 q" "SR = режим замены
 let &t_EI.="\e[2 q" "EI = нормальный режим
@@ -55,29 +50,8 @@ let &t_EI.="\e[2 q" "EI = нормальный режим
 "6 - просто вертикальная черта
 " }}}
 
-set hidden
-
-set showmatch
-
-set number relativenumber
-
-set cursorline "подсвечивать строку с курсором
-
-" Show partial command you type in the last line of the screen.
-set showcmd
-
-" No show the mode you are on the last line.(have in airline)
-"set noshowmode
-
-set hlsearch
-set ignorecase
-
-set wildmenu
-" Выключаем звук в Vim
-set visualbell t_vb=
-"
-"config airline {{{
-let g:airline_experimental=1
+" config airline {{{
+let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
@@ -95,26 +69,41 @@ let g:airline_symbols.maxlinenr = '☰ '
 let g:airline_symbols.dirty='⚡'
 
 let g:airline_section_z = "\ln:%l/%L Col:%c" "Кастомная графа положения курсора
-let g:airline_section_y=''
-" disable spell detection
-let g:airline_detect_spell=0
-let g:airline_detect_iminsert=0
+
+let g:airline_detect_iminsert=1
+let g:airline#extensions#branch#enabled=1
+
+set noshowmode " No show the mode you are on the last line(have in airline)
+set shortmess-=S "match number while searching
+
+let g:airline_theme='distinguished'
 " }}}
-set list listchars=space:-
 
 
-" Vimscript file settings {{{
+" folding in vim files{{{
 augroup filtetype_vim
   autocmd!
   autocmd FileType vim setlocal foldmethod=marker
 augroup END
 " }}}
+
 "nnoremap {{{
 nnoremap <space><space> :set nohlsearch!<CR>
+
+nnoremap go o<Esc>
+nnoremap gO O<Esc>
+
 nnoremap <Down>  :resize -2<CR>
 nnoremap <Left>  :vertical resize +2<CR>
 nnoremap <Right> :vertical resize -2<CR>
 nnoremap <Up>    :resize +2<CR>
+
+nnoremap ;       q:k
+nnoremap <A-L> :set spell!<CR>
 "}}}
 
+"{{{ inoremap
 inoremap jj <esc>
+"}}}
+
+colorscheme everforest
