@@ -6,6 +6,13 @@ call   plug#begin('~/AppData/Local/nvim/pluged')
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
 
+    "git integration
+    Plug 'tpope/vim-fugitive'
+
+    "syntastic cheker
+    Plug 'vim-syntastic/syntastic'
+    Plug 'myint/syntastic-extras'
+
     "colorscheme
     Plug 'https://github.com/sainnhe/everforest'
 call plug#end()
@@ -16,7 +23,7 @@ syntax on
 set number relativenumber
 set cursorline "highlight current line
 set showcmd "show typing command in the last line of the screen
-set hidden "change fie without writing current
+set hidden "change file without writing current
 set autochdir "switch to current file's parent directory.
 set mouse=a "enable mouse
 set novisualbell "disable blinking
@@ -68,10 +75,10 @@ let g:airline_symbols.linenr = ' :'
 let g:airline_symbols.maxlinenr = '☰ '
 let g:airline_symbols.dirty='⚡'
 
-let g:airline_section_z = "\ln:%l/%L Col:%c" "Кастомная графа положения курсора
+let g:airline_section_z = "%p%% \ln:%l/%L Col:%c" "Кастомная графа положения курсора
 
-let g:airline_detect_iminsert=1
 let g:airline#extensions#branch#enabled=1
+let g:airline#extensions#tabline#formatter='default'
 
 set noshowmode " No show the mode you are on the last line(have in airline)
 set shortmess-=S "match number while searching
@@ -79,6 +86,12 @@ set shortmess-=S "match number while searching
 let g:airline_theme='distinguished'
 " }}}
 
+"config syntastic cheker {{{
+let g:syntastic_c_checkers = ['check'] "enable syntastic-extra for c(better work)
+let g:syntastic_cpp_checkers = ['check'] "enable syntastic-extra for c(better work)
+let g:syntastic_gitcommit_checkers = ['language_check'] "anguage check in gitcommit
+
+"}}}
 
 " folding in vim files{{{
 augroup filtetype_vim
