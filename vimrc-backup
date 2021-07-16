@@ -31,7 +31,6 @@ set t_vb= "disable sounds
 set wrap nolist linebreak "not change the text but simply displays it on multiple lines when wrap
 set nobackup "disable backup files
 set noswapfile "disable swap files
-set list listchars=space:- "show spaces like
 set ignorecase "ignore case when searching
 set spelllang=en,ru,uk
 "}}}
@@ -104,6 +103,9 @@ nnoremap <Up>    :resize +2<CR>
 nnoremap ;       q:k
 nnoremap <A-L> :set spell!<CR>
 
+nnoremap <A-C> :!gcc -std=c11 -Wall -Wextra -Werror -Wpedantic -o test.exe *.c <CR>
+nnoremap <A-R> :!./test.exe <CR>
+
 "enable syntastic checker
 "nnoremap <A-S> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 "}}}
@@ -115,3 +117,4 @@ inoremap {<CR> {<CR>}<C-o>O
 "}}}
 
 colorscheme everforest
+
