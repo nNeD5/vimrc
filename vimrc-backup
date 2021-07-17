@@ -34,7 +34,6 @@ set nobackup "disable backup files
 set noswapfile "disable swap files
 set ignorecase "ignore case when searching
 set spelllang=en,ru,uk
-set encoding=UTF-8
 "}}}
 
 " indents {{{
