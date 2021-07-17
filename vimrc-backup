@@ -6,6 +6,9 @@ call   plug#begin()
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
 
+    "beatiful icon
+    Plug 'ryanoasis/vim-devicons'
+
     "git integration
     Plug 'tpope/vim-fugitive'
 
@@ -34,6 +37,7 @@ set nobackup "disable backup files
 set noswapfile "disable swap files
 set ignorecase "ignore case when searching
 set spelllang=en,ru,uk
+set encoding=utf-8
 "}}}
 
 " indents {{{
