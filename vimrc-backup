@@ -29,6 +29,7 @@ set mouse=a "enable mouse
 set novisualbell "disable blinking
 set t_vb= "disable sounds
 set wrap nolist linebreak "not change the text but simply displays it on multiple lines when wrap
+set path+=** "for search anywhere
 set nobackup "disable backup files
 set noswapfile "disable swap files
 set ignorecase "ignore case when searching
@@ -100,21 +101,34 @@ nnoremap <Left>  :vertical resize +2<CR>
 nnoremap <Right> :vertical resize -2<CR>
 nnoremap <Up>    :resize +2<CR>
 
+nnoremap <C-w>   <C-w>w
+nnoremap <C-j>   <C-w>j
+nnoremap <C-k>   <C-w>k
+nnoremap <C-h>   <C-w>h
+nnoremap <C-l>   <C-w>l
+
 nnoremap ;       q:k
 nnoremap <A-L> :set spell!<CR>
 
-nnoremap <A-C> :!gcc -std=c11 -Wall -Wextra -Werror -Wpedantic -o test.exe *.c <CR>
-nnoremap <A-R> :!./test.exe <CR>
+nnoremap \\ :!gcc -std=c11 -Wall -Wextra -Werror -Wpedantic -o test.exe *.c <bar> ./test.exe <CR>
 
-"enable syntastic checker
-"nnoremap <A-S> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+nnoremap <C-s>  :SyntasticToggleMode<CR>
 "}}}
 
 "{{{ inoremap
 inoremap jj  <esc>
-"inoremap {   {}<left>
 inoremap {<CR> {<CR>}<C-o>O
+inoremap (( ()<left>
+inoremap "" ""<left>
+inoremap [[ []<left>
+"}}}
+
+"abbreviate {{{
+abbreviate mainv main(void) {<CR>
+       \<CR>return 0;<esc>2ko
+
+abbreviate maina main(int argc, char **argv) {<CR>
+       \<CR>return 0;<esc>2ko
 "}}}
 
 colorscheme everforest
-
