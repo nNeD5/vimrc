@@ -9,12 +9,16 @@ call   plug#begin()
     "git integration
     Plug 'tpope/vim-fugitive'
 
+
+    "more syntax highlight for c/c++
+    Plug 'https://github.com/bfrg/vim-cpp-modern'
+
     "syntastic cheker
     Plug 'vim-syntastic/syntastic'
     Plug 'myint/syntastic-extras'
 
     "colorscheme
-    Plug 'https://github.com/sainnhe/everforest'
+    Plug 'https://github.com/sainnhe/sonokai'
 call plug#end()
 " }}}
 
@@ -34,6 +38,7 @@ set nobackup "disable backup files
 set noswapfile "disable swap files
 set ignorecase "ignore case when searching
 set spelllang=en,ru,uk
+set encoding=UTF-8
 "}}}
 
 " indents {{{
@@ -43,6 +48,7 @@ set smarttab "delete full indents with <backspace> in line start
 set expandtab "use to spaces to insert a <Tab>
 set autoindent "copy indent from current line
 set backspace=indent,eol,start whichwrap+=<,>,[,]
+autocmd BufWritePre * :%s/\s\+$//e "auto delete trailing spaces when write
 "}}}
 
 "diffent cursor among mods {{{
@@ -88,7 +94,7 @@ augroup filtetype_vim
   autocmd!
   autocmd FileType vim setlocal foldmethod=marker
 augroup END
-" }}}
+"}}}
 
 "nnoremap {{{
 nnoremap <space><space> :set nohlsearch!<CR>
@@ -101,35 +107,38 @@ nnoremap <Left>  :vertical resize +2<CR>
 nnoremap <Right> :vertical resize -2<CR>
 nnoremap <Up>    :resize +2<CR>
 
-nnoremap <C-w>   <C-w>w
 nnoremap <C-j>   <C-w>j
 nnoremap <C-k>   <C-w>k
 nnoremap <C-h>   <C-w>h
 nnoremap <C-l>   <C-w>l
 
-nnoremap ;       q:k
+nnoremap ;;      q:k
 nnoremap <A-L> :set spell!<CR>
 
-nnoremap \\ :!gcc -std=c11 -Wall -Wextra -Werror -Wpedantic -o test.exe *.c <bar> ./test.exe <CR>
+nnoremap \c :w !gcc -std=c11 -Wall -Wextra -Werror -Wpedantic -o test.exe *.c <CR>
+nnoremap \r :w !./test.exe <CR>
 
 nnoremap <C-s>  :SyntasticToggleMode<CR>
 "}}}
 
 "{{{ inoremap
 inoremap jj  <esc>
+
 inoremap {<CR> {<CR>}<C-o>O
 inoremap (( ()<left>
 inoremap "" ""<left>
 inoremap '' ''<left>
 inoremap [[ []<left>
+inoremap {{ {}<left>
+inoremap << <><left>
 "}}}
 
 "abbreviate {{{
-abbreviate mainv main(void) {<CR>
-       \<CR>return 0;<esc>2ko
+abbreviate mainv int main(void) {<CR>
+       \<CR>return 0;<UP><space><space><space>
 
-abbreviate maina main(int argc, char **argv) {<CR>
-       \<CR>return 0;<esc>2ko
+abbreviate maina int main(int argc, char **argv) {<CR>
+        \<CR>return 0;<UP><space><space><space>
 "}}}
 
-colorscheme everforest
+colorscheme sonokai
