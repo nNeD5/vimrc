@@ -1,2 +1,1 @@
-# test
-# vimrc
+# Vim config

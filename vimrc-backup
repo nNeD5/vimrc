@@ -6,6 +6,9 @@ call   plug#begin()
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
 
+    "latex
+    Plug 'lervag/vimtex'
+
     "git integration
     Plug 'tpope/vim-fugitive'
 
@@ -17,8 +20,10 @@ call   plug#begin()
     Plug 'vim-syntastic/syntastic'
     Plug 'myint/syntastic-extras'
 
-    "colorscheme
+    "colorschemes
     Plug 'https://github.com/sainnhe/sonokai'
+    Plug 'https://github.com/arcticicestudio/nord-vim.git'
+    Plug 'https://github.com/morhetz/gruvbox.git'
 call plug#end()
 " }}}
 
@@ -39,6 +44,7 @@ set noswapfile "disable swap files
 set ignorecase "ignore case when searching
 set spelllang=en,ru,uk
 set encoding=UTF-8
+set wildmenu
 "}}}
 
 " indents {{{
@@ -64,7 +70,7 @@ let &t_EI.="\e[2 q" "EI = нормальный режим
 " }}}
 
 " config airline {{{
-let g:airline_powerline_fonts = 1
+let g:airline_symbols_ascii = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
@@ -89,6 +95,10 @@ let g:syntastic_check_on_wq = 0 "disable syntastic chek when wq
 let g:syntastic_enable_highlighting = 0 "disable highlighting
 "}}}
 
+"config latex plugin {{{
+"let g:vimtex_view_method='zathura'
+"}}}
+
 " folding in vim files{{{
 augroup filtetype_vim
   autocmd!
@@ -98,6 +108,7 @@ augroup END
 
 "nnoremap {{{
 nnoremap <space><space> :set nohlsearch!<CR>
+nnoremap Y y$
 
 nnoremap go o<Esc>
 nnoremap gO O<Esc>
@@ -112,22 +123,20 @@ nnoremap <C-k>   <C-w>k
 nnoremap <C-h>   <C-w>h
 nnoremap <C-l>   <C-w>l
 
-nnoremap ;;      q:k
 nnoremap <A-L> :set spell!<CR>
 
-nnoremap \c :w !gcc -std=c11 -Wall -Wextra -Werror -Wpedantic -o test.exe *.c <CR>
-nnoremap \r :w !./test.exe <CR>
+nnoremap \c :w !clang -std=c11 -Wall -Wextra -Wpedantic -o test.out *.c <CR>
+nnoremap \r :w !./test.out <CR>
 
-nnoremap <C-s>  :SyntasticToggleMode<CR>
+nnoremap <C-c>  :SyntasticReset<CR>
+
 "}}}
 
 "{{{ inoremap
-inoremap jj  <esc>
+inoremap jk  <esc>
 
 inoremap {<CR> {<CR>}<C-o>O
 inoremap (( ()<left>
-inoremap "" ""<left>
-inoremap '' ''<left>
 inoremap [[ []<left>
 inoremap {{ {}<left>
 inoremap << <><left>
@@ -141,4 +150,11 @@ abbreviate maina int main(int argc, char **argv) {<CR>
         \<CR>return 0;<UP><space><space><space>
 "}}}
 
+if has('termguicolors')
+  set termguicolors
+endif
+let g:sonokai_transparent_background = 1
+
+let g:sonokai_style = 'espresso'
 colorscheme sonokai
+
