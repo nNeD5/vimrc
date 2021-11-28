@@ -9,16 +9,18 @@ call   plug#begin()
     "latex
     Plug 'lervag/vimtex'
 
+    "snipets
+    Plug 'sirver/ultisnips'
+
     "git integration
     Plug 'tpope/vim-fugitive'
-
 
     "more syntax highlight for c/c++
     Plug 'https://github.com/bfrg/vim-cpp-modern'
 
     "syntastic cheker
-    Plug 'vim-syntastic/syntastic'
-    Plug 'myint/syntastic-extras'
+    "Plug 'vim-syntastic/syntastic'
+    "Plug 'myint/syntastic-extras'
 
     "colorschemes
     Plug 'https://github.com/sainnhe/sonokai'
@@ -30,7 +32,7 @@ call plug#end()
 "standard {{{
 syntax on
 set number relativenumber
-set cursorline "highlight current line
+"set cursorline "highlight current line
 set showcmd "show typing command in the last line of the screen
 set hidden "change file without writing current
 set autochdir "switch to current file's parent directory.
@@ -42,7 +44,7 @@ set path+=** "for search anywhere
 set nobackup "disable backup files
 set noswapfile "disable swap files
 set ignorecase "ignore case when searching
-set spelllang=en,ru,uk
+set spelllang=en,ru,uk,en_us spell
 set encoding=UTF-8
 set wildmenu
 "}}}
@@ -70,12 +72,15 @@ let &t_EI.="\e[2 q" "EI = нормальный режим
 " }}}
 
 " config airline {{{
-let g:airline_symbols_ascii = 1
+"let g:airline_symbols_ascii = 1
+"let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
+let g:airline_section_a = airline#section#create(['mode', 'crypt', 'paste', 'iminsert'])
 let g:airline_section_z = "%p%% \ln:%l/%L Col:%c" "Кастомная графа положения курсора
+
 
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#tabline#formatter='default'
@@ -87,16 +92,22 @@ let g:airline_theme='distinguished'
 " }}}
 
 "config syntastic cheker {{{
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"Jset statusline+=%*
 "let g:syntastec_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] } "disable checker by default
-let g:syntastic_check_on_wq = 0 "disable syntastic chek when wq
-let g:syntastic_enable_highlighting = 0 "disable highlighting
+"let g:syntastic_check_on_wq = 0 "disable syntastic chek when wq
+"let g:syntastic_enable_highlighting = 0 "disable highlighting
 "}}}
 
-"config latex plugin {{{
-"let g:vimtex_view_method='zathura'
+" config vimtex{{{
+let g:syntastic_tex_checkers = ['lacheck']
+"}}}
+
+"config ultisnips{{{
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 "}}}
 
 " folding in vim files{{{
@@ -113,19 +124,17 @@ nnoremap Y y$
 nnoremap go o<Esc>
 nnoremap gO O<Esc>
 
-nnoremap <Down>  :resize -2<CR>
-nnoremap <Left>  :vertical resize +2<CR>
-nnoremap <Right> :vertical resize -2<CR>
-nnoremap <Up>    :resize +2<CR>
+nnoremap <Up>       :resize -2<CR>
+nnoremap <Down>     :resize +2<CR>
+nnoremap <Right>    :vertical resize +2<CR>
+nnoremap <Left>     :vertical resize -2<CR>
 
 nnoremap <C-j>   <C-w>j
 nnoremap <C-k>   <C-w>k
 nnoremap <C-h>   <C-w>h
 nnoremap <C-l>   <C-w>l
 
-nnoremap <A-L> :set spell!<CR>
-
-nnoremap \c :w !clang -std=c11 -Wall -Wextra -Wpedantic -o test.out *.c <CR>
+nnoremap \c :w !clang -std=c11 -lm -Wall -Wextra -Wpedantic -o test.out *.c <CR>
 nnoremap \r :w !./test.out <CR>
 
 nnoremap <C-c>  :SyntasticReset<CR>
@@ -133,13 +142,15 @@ nnoremap <C-c>  :SyntasticReset<CR>
 "}}}
 
 "{{{ inoremap
-inoremap jk  <esc>
+inoremap jj  <esc>
+inoremap ii  <esc>
 
 inoremap {<CR> {<CR>}<C-o>O
 inoremap (( ()<left>
 inoremap [[ []<left>
 inoremap {{ {}<left>
-inoremap << <><left>
+
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 "}}}
 
 "abbreviate {{{
@@ -154,7 +165,8 @@ if has('termguicolors')
   set termguicolors
 endif
 let g:sonokai_transparent_background = 1
-
+let g:sonokai_disable_italic_comment = 1
 let g:sonokai_style = 'espresso'
+
 colorscheme sonokai
 
