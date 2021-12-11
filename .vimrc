@@ -38,8 +38,11 @@ set autochdir "switch to current file's parent directory.
 set mouse=a "enable mouse
 set novisualbell "disable blinking
 set t_vb= "disable sounds
-set wrap nolist linebreak "not change the text but simply displays it on multiple lines when wrap
-set path+=** "for search anywhere
+set wrap nolist "linebreak "not change the text but simply displays it on multiple lines when wrap
+set path+=$PWD/** "for search
+set path+=university/** "for search
+set path+=uncode/** "for search
+"set path=$PWD/**
 set nobackup "disable backup files
 set noswapfile "disable swap files
 set ignorecase "ignore case when searching
@@ -87,7 +90,8 @@ let g:airline#extensions#tabline#formatter='default'
 set noshowmode " No show the mode you are on the last line(have in airline)
 set shortmess-=S "match number while searching
 
-let g:airline_theme='distinguished'
+let g:airline_theme='nord'
+"'distinguished'
 " }}}
 
 "config syntastic cheker {{{
@@ -118,7 +122,9 @@ augroup END
 
 "nnoremap {{{
 nnoremap <space><space> :set nohlsearch!<CR>
+
 nnoremap Y y$
+
 
 nnoremap go o<Esc>
 nnoremap gO O<Esc>
@@ -141,9 +147,8 @@ nnoremap <C-c>  :SyntasticReset<CR>
 "}}}
 
 ""{{{ inoremap
-inoremap jj  <esc>
-inoremap ii  <esc>
-
+inoremap <silent>  jj  <esc>
+inoremap <silent> ii  <esc>
 inoremap {<CR> {<CR>}<C-o>O
 inoremap (( ()<left>
 inoremap [[ []<left>
@@ -151,10 +156,6 @@ inoremap {{ {}<left>
 
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 ""}}}
-
-"camps{{{
-cmap et tabnew
-"}}}
 
 "abbreviate {{{
 abbreviate mainv int main(void) {<CR>
@@ -164,13 +165,30 @@ abbreviate maina int main(int argc, char **argv) {<CR>
         \<CR>return 0;<UP><space><space><space>
 "}}}
 
-"config colorscheme{{{
+
 if has('termguicolors')
     set termguicolors
 endif
-let g:sonokai_transparent_background = 1
-"let g:sonokai_disable_italic_comment = 1
-let g:sonokai_style = 'espresso'
-"}}}
 
-colorscheme sonokai
+"let g:sonokai_transparent_background = 1
+"let g:sonokai_disable_italic_comment = 1
+"let g:sonokai_style = 'espresso'
+"colorscheme sonokai
+
+colorscheme nord
+let g:nord_underline = 1
+let g:nord_cursor_line_number_background = 1
+
+"transparency
+hi Normal guibg=NONE ctermbg=NONE
+
+"hi spell error
+"area dsjf
+hi clear SpellBad
+hi SpellBad cterm=underline
+hi SpellBad gui=undercurl
+
+"hi folding
+hi clear Folded
+hi Folded ctermbg=grey
+hi Folded guifg=#6b859f

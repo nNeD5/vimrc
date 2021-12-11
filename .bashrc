@@ -1,6 +1,0 @@
-alias ucode='eval eval "$(ssh-agent -s)";  ssh-add /d/programing/ucode/.ssh/id_rsa'
-alias g='git'
-alias ga='git add'
-alias gcm='git commit -m'
-alias gph='git push'
-alias gst='git status'

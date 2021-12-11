@@ -5,7 +5,7 @@ snippet beg "begin{} / end{}" bA
 endsnippet
 
 
-snippet mk "Math" wA
+snippet ml "Math" w
 $${1}$`!p
 if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
     snip.rv = ' '
@@ -14,22 +14,13 @@ else:
 `$2
 endsnippet
 
-snippet dm "Math" wA
+snippet mc "Math" w
 \[
-$1
-\] $0
+   $1
+.\] $0
 endsnippet
 
-
-snippet '([A-Za-z])(\d)' "auto subscript" wrA
-`!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
-endsnippet
-
-snippet '([A-Za-z])_(\d\d)' "auto subscript2" wrA
-`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
-endsnippet
-
-snippet td "superscript" iA
+snippet tu "superscript" i
 ^{$1}$0
 endsnippet
 
@@ -44,12 +35,12 @@ endsnippet
 
 
 priority 10
-snippet "vec" "vec" riA
+snippet "vec" "vec" ria
 \vec{$1}$0
 endsnippet
 
 priority 100
-snippet "([a-zA-Z])vec" "vec" riA
+snippet "([a-zA-Z])vec" "vec" ri
 \vec{`!p snip.rv=match.group(1)`}
 endsnippet
 
